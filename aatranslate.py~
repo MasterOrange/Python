@@ -1,0 +1,71 @@
+t()!/usr/local/bin/python3.5
+
+# Translates a fasts file in all 6 frames
+
+import sys
+
+seqList = []
+with open(sys.argv[1], 'r') as f:
+    name = f.readline()
+    next(f)
+    for line in f:
+        seqList.append(line)
+ 
+seq = ''.join(seqList)
+
+
+aaDict = {"AAA":"K", "AAC":"N", "AAG":"K", "AAU":"N",
+          "ACA":"T", "ACC":"T", "ACG":"T", "ACU":"T",
+          "AGA":"R", "AGC":"S", "AGG":"R", "AGU":"S", 
+          "AUA":"I", "AUC":"I", "AUG":"M", "AUU":"I",
+          "CAA":"Q", "CAC":"H", "CAG":"Q", "CAU":"H",
+          "CCA":"P", "CCC":"P", "CCG":"P", "CCU":"P",
+          "CGA":"R", "CGC":"R", "CGG":"R", "CGU":"R",
+          "CUA":"L", "CUC":"L", "CUG":"L", "CUU":"L",
+          "GAA":"E", "GAC":"D", "GAG":"E", "GAU":"D",
+          "GCA":"A", "GCC":"A", "GCG":"A", "GCU":"A",
+          "GGA":"G", "GGC":"G", "GGG":"G", "GGU":"G",
+          "GUA":"V", "GUC":"V", "GUG":"V", "GUU":"V",
+          "UAA":"_", "UAC":"Y", "UAG":"_", "UAU":"T",
+          "UCA":"S", "UCC":"S", "UCG":"S", "UCU":"S",
+          "UGA":"_", "UGC":"C", "UGG":"W", "UGU":"C",
+          "UUA":"L", "UUC":"F", "UUG":"L", "UUU":"F"}
+
+def translate(seq):
+    translated = []
+    triplets = []
+    x, y = 0, 2
+    if len(transSeq)%3 == 0:
+        break
+    elif len(transSeq)%3 == 1:
+        transSeq = transSeq[:-1]
+    else:
+        transSeq = transSeq[:-2]
+    for x, y in transSeq:
+        triplets.append(transSeq[x:y])
+        x += 3
+        y += 3
+        if y = len(transSeq):
+            break
+    for item in triplets:      
+        translated.append(aaDict[item])
+    return ''.join(translated)
+
+def frames(seq):
+    x = 0
+    myseq = seq
+    myList = []
+    while x < 3:
+        myList.append(translate(myseq))
+        myseq = myseq[1:]
+        x += 1
+    revseq = seq.reversed()
+    y = 0
+    while y < 3:
+        myList.append(translate(revseq))
+        revseq = revseq[1:]
+        y += 1
+    print(myList)
+
+
+
